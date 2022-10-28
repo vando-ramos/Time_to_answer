@@ -6,19 +6,32 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
     @admins = Admin.all
   end
 
+  def new
+    @admin = Admin.new
+  end
+
+  def create
+    @admin = Admin.new(params_admin)
+    if @admin.save
+      redirect_to admins_backoffice_admins_path, notice: "Registered Sucess!"
+    else
+      render :new
+    end
+  end
+
   def edit
   end
 
   def update
     if @admin.update(params_admin)
-      redirect_to admins_backoffice_admins_path, notice: "Update Sucess!"
+      redirect_to admins_backoffice_admins_path, notice: "Updated Sucess!"
     else
       render :edit
     end
   end
 
   private
-  
+
   def params_admin
     params.require(:admin).permit(:email, :password, :password_confirmation)
   end
