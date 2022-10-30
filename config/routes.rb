@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
   namespace :admins_backoffice do
     get 'welcome/index' # Dashboard
-    resources :admins, except: [:delete] # Admins
+    resources :admins # Admins
   end
 
   devise_for :users

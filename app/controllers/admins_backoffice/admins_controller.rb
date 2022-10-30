@@ -1,6 +1,6 @@
 class AdminsBackoffice::AdminsController < AdminsBackofficeController
   before_action :check_password, only: [:update]
-  before_action :set_admin, only: [:edit, :update]
+  before_action :set_admin, only: [:edit, :update, :destroy]
 
   def index
     @admins = Admin.all
@@ -13,7 +13,7 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
   def create
     @admin = Admin.new(params_admin)
     if @admin.save
-      redirect_to admins_backoffice_admins_path, notice: "Registered Sucess!"
+      redirect_to admins_backoffice_admins_path, notice: "Successfully Registered!"
     else
       render :new
     end
@@ -24,9 +24,17 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
 
   def update
     if @admin.update(params_admin)
-      redirect_to admins_backoffice_admins_path, notice: "Updated Sucess!"
+      redirect_to admins_backoffice_admins_path, notice: "Successfully Updated!"
     else
       render :edit
+    end
+  end
+
+  def destroy
+    if @admin.destroy
+      redirect_to admins_backoffice_admins_path, notice: "Successfully Deleted!"
+    else
+      render :index
     end
   end
 
